@@ -6,6 +6,9 @@
 1. 实体抽取/知识图谱  
 1. 向量数据库  
 
+备注：
+1. 在进行诸多尝试后，可行方案的实现已经由其他工程处理，本工程只作为一个思路的记录  
+
 ## 当前需要参考的内容
 ### 已经确认失败的方向
 1. 萌娘百科 datasets(尝试解析 - 数据格式混乱): https://huggingface.co/datasets/milashkaarshif/MoeGirlPedia_wikitext_raw_archive  
