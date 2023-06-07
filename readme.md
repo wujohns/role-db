@@ -24,8 +24,15 @@
 1. nlp 领域参数量小于 3b 的模型是工程陷阱(解决特定领域的处理时完全可以被普通db以及通用的相似度查询处理，基本没有泛用特性)  
 1. 失败的尝试放入到 ban-list 中  
 
-### 已确认可行的方向
+### 虽然可行但是工程性能太差的方向
 1. 使用 langchain 中的 Wikipedia loader 作为数据来源(实体数据信息): https://python.langchain.com/en/latest/modules/indexes/document_loaders/examples/wikipedia.html  
+
+备注：  
+1. wiki 官方虽然提供了便捷的接口，但是改接口的查询速度较慢，且有频率限制  
+1. 这里推荐改用将 wiki 数据存储到本地数据库然后对实体名称做向量化查询的方案  
+
+### 已确认可进行工程化实施的方向
+1. wiki 本地化并配合 mongodb 与 chroma 的方案  
 1. llm(newbing, gpt3.5) 处理实体提取和内容汇总(效果极好)  
 
 备注：
@@ -37,12 +44,14 @@
 1. 知识图谱存储方案：https://zhuanlan.zhihu.com/p/83893713  
 1. 采用 lora + chatglm 的模式进行训练可能比传统方式要更好  
 
+wiki 的数据也有打包下载的方式，可以参考这个站点：https://dumps.wikimedia.org/zhwiki/latest/
+对其相关数据的解析可以参考：https://cloud.tencent.com/developer/article/1564349
+
 ### memory 组织方式
-将摘要喂给 chroma ?
+目前先采用将实体名称喂给 chroma 辅助信息查询，但是否有必要投喂 entity 摘要有待商榷  
 1. langchain - chroma: https://python.langchain.com/en/latest/modules/indexes/vectorstores/examples/chroma.html  
 
-备注：
-1. 向量数据库当前存在无法去重的问题，这里需要对其进行酌情处理  
+TODO 开始进行 wiki 到向量数据库的转储工作
 
 ## 相关策略汇总
 1. 使用成熟的 llm 进行业务支撑，并同时收集语料  
