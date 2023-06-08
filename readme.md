@@ -51,9 +51,9 @@ wiki 的数据也有打包下载的方式，可以参考这个站点：https://d
 目前先采用将实体名称喂给 chroma 辅助信息查询，但是否有必要投喂 entity 摘要有待商榷  
 1. langchain - chroma: https://python.langchain.com/en/latest/modules/indexes/vectorstores/examples/chroma.html  
 
-TODO 开始进行 wiki 到向量数据库的转储工作
-
 ## 相关策略汇总
 1. 使用成熟的 llm 进行业务支撑，并同时收集语料  
 1. 后续再尝试使用 lora + chatglm 基于已经收集的语料训练模型  
 1. 基本可以抛弃小参数模型(虽然资源消耗少，但依赖更多的人力以及在工程特性上效果太差，兜底也是需要采用 chatglm-6b + lora 的方案)  
+
+先进行小规模转储测试

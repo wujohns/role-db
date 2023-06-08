@@ -3,3 +3,6 @@ hg-repos/
 zhwiki-latest-pages-articles.xml
 zhwiki-latest-pages-articles.xml.bz2
 wiki.txt
+
+wiki-service/__pycache__/
+wiki-service/db/
