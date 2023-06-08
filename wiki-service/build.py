@@ -75,5 +75,11 @@ for wiki_doc in wiki_list:
 
     # 进度计数
     cur_wiki_index += 1
-    if cur_wiki_index % 100 == 0:
+    if cur_wiki_index % 500 == 0:
       wiki_list.set_description(u'已获取%s篇文章'%cur_wiki_index)
+      globals.entity_name_store.persist()
+      globals.entity_abstract_store.persist()
+
+# 程序结束前做持久化处理
+globals.entity_name_store.persist()
+globals.entity_abstract_store.persist()

@@ -6,3 +6,4 @@ wiki.txt
 
 wiki-service/__pycache__/
 wiki-service/db/
+logs/
