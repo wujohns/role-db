@@ -58,9 +58,7 @@ wiki_pages = extract_pages(bz2file.open(wiki_path))
 cur_wiki_index = 0
 wiki_list = tqdm(wiki_pages, desc=u'已获取0篇文章')
 for wiki_doc in wiki_list:
-  # 相比于参考案例中保留英文 entity
-  # if not re.findall('^[a-zA-Z]+:', wiki_doc[0]) and wiki_doc[0] and not re.findall(u'^#', wiki_doc[1]):
-  if wiki_doc[0] and not re.findall(u'^#', wiki_doc[1]):
+  if not re.findall('^[a-zA-Z]+:', wiki_doc[0]) and wiki_doc[0] and not re.findall(u'^#', wiki_doc[1]):
     # 解析并格式化 wiki 内容
     wiki_info = wiki_format(wiki_doc)
     title = wiki_info['title']

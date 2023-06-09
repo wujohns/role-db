@@ -4,6 +4,7 @@ import chromadb
 import shutil
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.vectorstores import Chroma
+import traceback
 import globals
 
 # 绝对路径获取方法
@@ -59,18 +60,26 @@ def update_doc (vectorstore: Chroma, doc):
   metadata = doc.metadata
   entity_name = metadata['entity_name']
 
-  # 查询对应的 doc 是否存在
-  cur_docs = vectorstore._collection.get(
-    where={ 'entity_name': entity_name }
-  )
-  cur_docs_ids = cur_docs['ids']
-  if len(cur_docs_ids) > 0:
-    # 当前 doc 存在
-    doc_id = cur_docs_ids[0]
-    vectorstore.update_document(document_id=doc_id, document=doc)
-  else:
-    # 当前 doc 不存在
-    vectorstore.add_documents(documents=[doc], embeddings=embeddings)
+  # chroma 基于的 duckdb 安全性不够，可能出现未知错误导致中断
+  try:
+    # 查询对应的 doc 是否存在
+    cur_docs = vectorstore._collection.get(
+      where={ 'entity_name': entity_name }
+    )
+    cur_docs_ids = cur_docs['ids']
+    if len(cur_docs_ids) > 0:
+      # 当前 doc 存在
+      doc_id = cur_docs_ids[0]
+      vectorstore.update_document(document_id=doc_id, document=doc)
+    else:
+      # 当前 doc 不存在
+      vectorstore.add_documents(documents=[doc], embeddings=embeddings)
+  except Exception as e:
+    print('vectordb 操作发生错误:')
+    traceback.print_exc()
+    return False
+
+  return True
 
 # 先搜索相似的实例名，再准确搜索 abstract
 def search_abstract (entity_name):

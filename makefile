@@ -1,7 +1,6 @@
 # 在后台运行构建
 build-wiki:
-	nohup python wiki-service/build.py &
-	rm nohup.out
+	nohup python wiki-service/build.py > logs/build.log 2>&1 &
 
 # 获取进程号
 build-ps:
