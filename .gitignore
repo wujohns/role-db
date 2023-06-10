@@ -6,4 +6,7 @@ wiki.txt
 
 wiki-service/__pycache__/
 wiki-service/db/
+wiki-dump/
 logs/
+
+wiki-mongo/__pycache__/

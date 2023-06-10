@@ -19,3 +19,5 @@ gensim==4.3.1
 bz2file==0.98
 
 # sentencepiece==0.1.99
+
+pymongo==4.3.3
