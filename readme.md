@@ -62,6 +62,7 @@ totalSize(数据库的总体大小): 2.13g
 1. 知乎数据集(需要依据实际业务方向做定向筛选清洗): https://huggingface.co/datasets/wangrui6/Zhihu-KOL  
 1. 知识图谱存储方案：https://zhuanlan.zhihu.com/p/83893713  
 1. 采用 lora + chatglm 的模式进行训练可能比传统方式要更好  
+1. 使用后置处理模式的相似度搜索配合双prompt模式实现群聊模式下的定制化性格偏移  
 
 wiki 的数据也有打包下载的方式，可以参考这个站点：https://dumps.wikimedia.org/zhwiki/latest/
 对其相关数据的解析可以参考：https://cloud.tencent.com/developer/article/1564349
@@ -74,4 +75,6 @@ wiki 的数据也有打包下载的方式，可以参考这个站点：https://d
 1. 使用成熟的 llm 进行业务支撑，并同时收集语料  
 1. 后续再尝试使用 lora + chatglm 基于已经收集的语料训练模型  
 1. 基本可以抛弃小参数模型(虽然资源消耗少，但依赖更多的人力以及在工程特性上效果太差，兜底也是需要采用 chatglm-6b + lora 的方案)  
+
+这里采用提供一个可以供其他语言调用的角色习惯用语汇总
 
