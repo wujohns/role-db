@@ -12,3 +12,6 @@ build-log:
 # 启动 role-service
 role-dev:
 	python role-service/app.py
+
+pm2-start:
+	pm2 start pm2.config.js

@@ -8,6 +8,7 @@ wiki-service/__pycache__/
 wiki-service/db/
 wiki-dump/
 logs/
+run/
 
 wiki-mongo/__pycache__/
 
