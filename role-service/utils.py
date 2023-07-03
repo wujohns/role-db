@@ -1,6 +1,8 @@
 # 相关工具方法封装
 import os
 import chromadb
+import hashlib
+import consts
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.vectorstores import Chroma
 import traceback
@@ -14,9 +16,15 @@ def getAbsPath (relativePath):
     os.path.abspath(joinPath)
   )
 
-embeddings = HuggingFaceEmbeddings(
-  model_name=getAbsPath('../hg-repos/embedding-models/all-MiniLM-L6-v2')
-)
+# embedding 模型
+embeddings = HuggingFaceEmbeddings(model_name=consts.embedding_model_path)
+
+# 获取文本 hash
+def get_content_hash (content):
+  hash = hashlib.md5()
+  hash.update(content.encode(encoding='utf-8'))
+  hash = hash.hexdigest()
+  return hash
 
 # 初始化向量数据库
 def init_store ():
@@ -78,6 +86,8 @@ def update_doc (dbName, doc):
     else:
       # 当前 doc 不存在
       vectorstore.add_documents(documents=[doc], embeddings=embeddings)
+    vectorstore.persist()
+    return True
   except Exception as e:
     print('vectordb 操作发生错误:')
     traceback.print_exc()

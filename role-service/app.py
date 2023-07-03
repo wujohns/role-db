@@ -1,24 +1,54 @@
 # 启动一个基础的 web 服务
-# import hashlib
-
-# str = 'kmk'
-# h = hashlib.md5()
-# h.update(str.encode(encoding='utf-8'))
-
-# print(h.hexdigest())
-import hashlib
+import json
+import consts
+from utils import get_content_hash, init_store, update_doc, search_similarity
+from quart import Quart, jsonify, request
 from langchain.docstore.document import Document
 
-from utils import init_store, update_doc, search_similarity
+app = Quart(__name__)
 
-content = '你好，你好哈哈，老哥，零零零零'
-hash = hashlib.md5()
-hash.update(content.encode(encoding='utf-8'))
-hash = hash.hexdigest()
+# 更新或添加向量数据
+@app.route('/update', methods=['POST'])
+async def update ():
+  data_str = await request.data
+  data = json.loads(data_str)
+  
+  db_name = data['dbName']
+  content = data['content']
+  hash = get_content_hash(content)
+  doc = Document(page_content=content, metadata={ 'hash': hash })
+  success = update_doc(db_name, doc)
 
-doc = Document(page_content=content, metadata={ 'hash': hash })
-init_store()
-update_doc('kkm', doc)
+  return jsonify({ 'success': success })
 
-docs = search_similarity('kkm', '你好')
-print(docs)
+# 按照相似度搜索
+@app.route('/search', methods=['POST'])
+async def search ():
+  data_str = await request.data
+  data = json.loads(data_str)
+
+  db_name = data['dbName']
+  content = data['content']
+  docs = search_similarity(db_name, content)
+  return docs
+
+# 服务启动前的处理
+@app.before_serving
+def startup ():
+  print('init db')
+  init_store()
+
+# 服务关闭时的处理
+@app.after_serving
+def shutdown ():
+  print('close server')
+
+# 服务启动
+if __name__ == '__main__':
+  # 启动 web 服务
+  print('start develop web server')
+  app.run(
+    host=consts.host,
+    port=consts.port,
+    debug=consts.debug
+  )

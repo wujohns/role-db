@@ -21,3 +21,6 @@ bz2file==0.98
 # sentencepiece==0.1.99
 
 pymongo==4.3.3
+
+quart==0.18.3
+hypercorn

@@ -8,3 +8,7 @@ build-ps:
 
 build-log:
 	tail -f /proc/863482/fd/1
+
+# 启动 role-service
+role-dev:
+	python role-service/app.py
