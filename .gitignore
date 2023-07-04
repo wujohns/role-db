@@ -14,3 +14,4 @@ wiki-mongo/__pycache__/
 
 role-service/__pycache__/
 role-service/db/
+role-service/env.py

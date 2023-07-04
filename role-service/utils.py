@@ -2,8 +2,7 @@
 import os
 import chromadb
 import hashlib
-import consts
-from langchain.embeddings import HuggingFaceEmbeddings
+from consts import embeddings
 from langchain.vectorstores import Chroma
 import traceback
 from globals import dbMap
@@ -15,9 +14,6 @@ def getAbsPath (relativePath):
   return os.path.normpath(
     os.path.abspath(joinPath)
   )
-
-# embedding 模型
-embeddings = HuggingFaceEmbeddings(model_name=consts.embedding_model_path)
 
 # 获取文本 hash
 def get_content_hash (content):
@@ -82,7 +78,7 @@ def update_doc (dbName, doc):
     if len(cur_docs_ids) > 0:
       # 当前 doc 存在
       doc_id = cur_docs_ids[0]
-      vectorstore.update_document(document_id=doc_id, document=doc)
+      # vectorstore.update_document(document_id=doc_id, document=doc)
     else:
       # 当前 doc 不存在
       vectorstore.add_documents(documents=[doc], embeddings=embeddings)

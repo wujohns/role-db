@@ -30,7 +30,10 @@ async def search ():
   db_name = data['dbName']
   content = data['content']
   docs = search_similarity(db_name, content)
-  return docs
+  if docs:
+    return jsonify({ 'success': True, 'docs': docs })
+  else:
+    return jsonify({ 'success': False })
 
 # 服务启动前的处理
 @app.before_serving

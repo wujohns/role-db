@@ -20,6 +20,7 @@
 1. https://huggingface.co/IDEA-CCNL/Randeng-T5-77M-MultiTask-Chinese 在做 summary 时的效果也极差  
 1. 直接从用户在群聊的零散信息对话中获取实体摘要(相当于在群聊中学习) - 1v1 的对话模式学习效果不错，但是群聊场景由于发言较为发散，实体摘要效果很差  
 1. wiki 的本地化中使用 chroma 的方案 - chromadb 的写入性能太差，完成 wiki 的导入需要以百天的时间，在工程实践中得不偿失  
+1. langchain 中默认推荐的 all-MiniLM-L6-v2 与 paraphrase-multilingual-MiniLM-L12-v2 对中文处理的效果非常差，基本是不可用的  
 
 备注:  
 1. nlp 领域参数量小于 3b 的模型是工程陷阱(解决特定领域的处理时完全可以被普通db以及通用的相似度查询处理，基本没有泛用特性)  
@@ -35,6 +36,7 @@
 ### 已确认可进行工程化实施的方向
 1. wiki 本地化并配合 mongodb
 1. llm(newbing, gpt3.5) 处理实体提取和内容汇总(效果极好)  
+1. openai 的 embedding 效果极佳  
 
 备注：
 1. 可以参考 [维基百科数据本地化](/docs/维基百科数据本地化.md)
@@ -78,3 +80,8 @@ wiki 的数据也有打包下载的方式，可以参考这个站点：https://d
 
 这里采用提供一个可以供其他语言调用的角色习惯用语汇总
 
+尝试搭建自定义的搜索 engine 配合 llm 获取实体摘要用于模型中的应用
+https://github.com/searx/searx/issues/1234
+
+参考：https://docs.trychroma.com/embeddings 的实现：
+1. 将 luotuo-bert 做成自定义的 embedding func 并进行效果测试  

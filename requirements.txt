@@ -24,3 +24,6 @@ pymongo==4.3.3
 
 quart==0.18.3
 hypercorn
+
+openai==0.27.8
+tiktoken==0.4.0
