@@ -15,6 +15,7 @@ def getAbsPath (relativePath):
   )
 
 # luotuo_bert 模型相关
+device = torch.device('cuda:0')
 luotuo_bert_model_path = getAbsPath('../hg-repos/embedding-models/luotuo-bert')
 luotuo_bert_tokenizer = AutoTokenizer.from_pretrained(luotuo_bert_model_path)
 luotuo_bert_model_args = Namespace(
@@ -26,6 +27,7 @@ luotuo_bert_model = AutoModel.from_pretrained(
   trust_remote_code=True,
   model_args=luotuo_bert_model_args
 )
+luotuo_bert_model = luotuo_bert_model.to(device)
 luotuo_bert_model.eval()
 
 # TODO 将模型载入到 gpu 加快计算速度
@@ -40,6 +42,7 @@ class LuotuoBertEmbeddings(BaseModel, Embeddings):
   def embed_documents(self, texts: List[str]) -> List[List[float]]:
     texts = [text[:512] for text in texts]
     inputs = luotuo_bert_tokenizer(texts, padding=True, truncation=True, return_tensors='pt')
+    inputs = inputs.to(device)
     with torch.no_grad():
       embeddings = luotuo_bert_model(**inputs, output_hidden_states=True, return_dict=True, sent_emb=True).pooler_output
     return embeddings.tolist()
@@ -48,6 +51,7 @@ class LuotuoBertEmbeddings(BaseModel, Embeddings):
     text = text[:512]
     texts = [text]
     inputs = luotuo_bert_tokenizer(texts, padding=True, truncation=True, return_tensors='pt')
+    inputs = inputs.to(device)
     with torch.no_grad():
       embeddings = luotuo_bert_model(**inputs, output_hidden_states=True, return_dict=True, sent_emb=True).pooler_output
     return embeddings.tolist()[0]

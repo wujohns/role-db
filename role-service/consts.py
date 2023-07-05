@@ -1,5 +1,4 @@
 import os
-from env import openai_key, openai_proxy
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.embeddings.openai import OpenAIEmbeddings
 from custom_embedding import LuotuoBertEmbeddings
@@ -20,6 +19,7 @@ def getAbsPath (relativePath):
 # embeddings = HuggingFaceEmbeddings(model_name=getAbsPath('../hg-repos/embedding-models/all-MiniLM-L6-v2'))
 
 # openai 暂时被限制使用，这里需要考虑使用其他方法进行处理
+# from env import openai_key, openai_proxy
 # embeddings = OpenAIEmbeddings(
 #   openai_api_key=openai_key,
 #   openai_proxy=openai_proxy
