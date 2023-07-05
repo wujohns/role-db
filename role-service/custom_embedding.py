@@ -30,7 +30,7 @@ luotuo_bert_model = AutoModel.from_pretrained(
 luotuo_bert_model = luotuo_bert_model.to(device)
 luotuo_bert_model.eval()
 
-# TODO 将模型载入到 gpu 加快计算速度
+# 使用 luotuo-bert 来做 embedding 的支持
 class LuotuoBertEmbeddings(BaseModel, Embeddings):
   def __init__(self, **kwargs: Any):
     super().__init__(**kwargs)

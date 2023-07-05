@@ -1,7 +1,8 @@
 # 启动一个基础的 web 服务
 import json
 import consts
-from utils import get_content_hash, init_store, update_doc, search_similarity
+from utils import get_content_hash, init_store
+from utils import update_doc, search_similarity, count_docs
 from quart import Quart, jsonify, request
 from langchain.docstore.document import Document
 
@@ -32,6 +33,19 @@ async def search ():
   docs = search_similarity(db_name, content)
   if docs:
     return jsonify({ 'success': True, 'docs': docs })
+  else:
+    return jsonify({ 'success': False })
+  
+# 统计条目总数
+@app.route('/count', methods=['POST'])
+async def count ():
+  data_str = await request.data
+  data = json.loads(data_str)
+  db_name = data['dbName']
+
+  num = count_docs(db_name)
+  if num:
+    return jsonify({ 'success': True, 'count': num })
   else:
     return jsonify({ 'success': False })
 

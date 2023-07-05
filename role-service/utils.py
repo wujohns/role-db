@@ -111,3 +111,15 @@ def search_similarity (dbName, content):
       'hash': hash
     })
   return docs
+
+# 获取 db 条目总数
+def count_docs (dbName):
+  global dbMap
+
+  # 对应的 db 不存在
+  if (not dbName in dbMap):
+    return False
+
+  vectorstore = dbMap[dbName]
+  num = vectorstore._collection.count()
+  return num

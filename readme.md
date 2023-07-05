@@ -34,9 +34,11 @@
 1. 这里推荐改用将 wiki 数据存储到本地数据库然后对实体名称做向量化查询的方案  
 
 ### 已确认可进行工程化实施的方向
-1. wiki 本地化并配合 mongodb
+1. wiki 本地化并配合 mongodb  
 1. llm(newbing, gpt3.5) 处理实体提取和内容汇总(效果极好)  
+1. 准确的背景知识补充可以极大的提升模型的表现力  
 1. openai 的 embedding 效果极佳  
+1. 基于 luotuo-bert 做成自定义的 langchain embedding func 效果极佳   
 
 备注：
 1. 可以参考 [维基百科数据本地化](/docs/维基百科数据本地化.md)
@@ -83,5 +85,3 @@ wiki 的数据也有打包下载的方式，可以参考这个站点：https://d
 尝试搭建自定义的搜索 engine 配合 llm 获取实体摘要用于模型中的应用
 https://github.com/searx/searx/issues/1234
 
-参考：https://docs.trychroma.com/embeddings 的实现：
-1. 将 luotuo-bert 做成自定义的 embedding func 并进行效果测试  
