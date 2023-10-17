@@ -67,6 +67,7 @@ totalSize(数据库的总体大小): 2.13g
 1. 知识图谱存储方案：https://zhuanlan.zhihu.com/p/83893713  
 1. 采用 lora + chatglm 的模式进行训练可能比传统方式要更好  
 1. 使用后置处理模式的相似度搜索配合双prompt模式实现群聊模式下的定制化性格偏移  
+1. 向量数据库的 embedding 选型这块也可以参考 text2vec-large-chinese（作为备选项
 
 wiki 的数据也有打包下载的方式，可以参考这个站点：https://dumps.wikimedia.org/zhwiki/latest/
 对其相关数据的解析可以参考：https://cloud.tencent.com/developer/article/1564349
@@ -84,4 +85,5 @@ wiki 的数据也有打包下载的方式，可以参考这个站点：https://d
 
 尝试搭建自定义的搜索 engine 配合 llm 获取实体摘要用于模型中的应用
 https://github.com/searx/searx/issues/1234
+https://docs.python-requests.org/en/latest/user/advanced/#proxies
 
